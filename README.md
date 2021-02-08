@@ -106,3 +106,6 @@ module.exports = {
 	}
 };
 ```
+
+## Contributing
+Feel free to open a Pull Request or create an issue
