@@ -84,10 +84,9 @@ function loadModels(decorator, modelDirectoryPath, useModelAliases) {
 
 async function fastifyMongoose(
 	fastify,
-	{ uri, settings, modelDirectoryPath = undefined, useModelAliases = true }
+	{ uri, settings = {}, modelDirectoryPath = undefined, useModelAliases = true }
 ) {
 	// merge defaults and passed in settings
-	if (!settings) settings = {};
 	const mergedSettings = Object.assign({}, DEFAULT_SETTINGS, settings);
 
 	// connect to the DB
@@ -120,6 +119,7 @@ async function fastifyMongoose(
 	fastify.decorate("mongoose", decorator);
 }
 
-module.exports = {
-	plugin: FastifyPlugin(fastifyMongoose),
-};
+module.exports = FastifyPlugin(fastifyMongoose, {
+	fastify: ">=3",
+	name: "fastify-plugin-mongoose",
+});
