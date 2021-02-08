@@ -7,7 +7,7 @@ const FastifyPluginMongoose = require("../index.js");
 async function runTest() {
 	tap.plan(1);
 
-	await fastify.register(FastifyPluginMongoose.plugin, {
+	await fastify.register(FastifyPluginMongoose, {
 		uri: "mongodb://localhost:27017/fastify-plugin-mongoose",
 		settings: {
 			config: {

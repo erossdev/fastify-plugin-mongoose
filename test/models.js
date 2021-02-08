@@ -18,7 +18,7 @@ tap.afterEach(async (done) => {
 tap.test("models should load", async (test) => {
 	test.plan(1);
 
-	await fastify.register(FastifyPluginMongoose.plugin, {
+	await fastify.register(FastifyPluginMongoose, {
 		uri: "mongodb://localhost:27017/fastify-plugin-mongoose",
 		modelDirectoryPath: path.resolve(path.join(__dirname, 'test-models')),
 		settings: {
@@ -39,7 +39,7 @@ tap.test("models should load", async (test) => {
 tap.test("models should load without alias", async (test) => {
 	test.plan(1);
 
-	await fastify.register(FastifyPluginMongoose.plugin, {
+	await fastify.register(FastifyPluginMongoose, {
 		uri: "mongodb://localhost:27017/fastify-plugin-mongoose",
 		modelDirectoryPath: path.resolve(path.join(__dirname, "test-models")),
 		useModelAliases: false,
