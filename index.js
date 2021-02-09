@@ -63,7 +63,7 @@ function loadModels(decorator, modelDirectoryPath, useModelAliases) {
 		const model = require(file);
 		fixReferences(model.schema);
 
-		const schema = new mongoose.Schema(model.schama, model.options || {});
+		const schema = new mongoose.Schema(model.schema, model.options || {});
 
 		if (model.class) schema.loadClass(model.class);
 		if (model.virtualize) model.virtualize(schema);
