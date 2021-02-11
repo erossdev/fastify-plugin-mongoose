@@ -1,25 +1,29 @@
 {
-  "name": "fastify-plugin-mongoose",
-  "version": "0.1.5",
-  "description": "Fastify plugin to connect to mongoDB using mongoose",
-  "main": "index.js",
-  "scripts": {
-    "test": "tap --test-ignore=/test-models/*"
-  },
-  "keywords": [
-    "fastify",
-    "mongoose",
-    "mongodb",
-    "plugin"
-  ],
-  "author": "Elliott Ross",
-  "license": "GPL-3.0",
-  "devDependencies": {
-    "fastify": "^3.11.0",
-    "tap": "^14.11.0"
-  },
-  "dependencies": {
-    "fastify-plugin": "^3.0.0",
-    "mongoose": "^5.11.15"
-  }
+	"name": "fastify-plugin-mongoose",
+	"version": "0.1.5",
+	"description": "Fastify plugin to connect to mongoDB using mongoose",
+	"main": "index.js",
+	"scripts": {
+		"test": "tap --test-ignore=/test-models/*"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/erossdev/fastify-plugin-mongoose.git"
+	},
+	"keywords": [
+		"fastify",
+		"mongoose",
+		"mongodb",
+		"plugin"
+	],
+	"author": "Elliott Ross",
+	"license": "GPL-3.0",
+	"devDependencies": {
+		"fastify": "^3.11.0",
+		"tap": "^14.11.0"
+	},
+	"dependencies": {
+		"fastify-plugin": "^3.0.0",
+		"mongoose": "^5.11.15"
+	}
 }
