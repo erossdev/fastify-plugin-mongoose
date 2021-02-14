@@ -4,7 +4,7 @@
 	"description": "Fastify plugin to connect to mongoDB using mongoose",
 	"main": "index.js",
 	"scripts": {
-		"test": "tap --test-ignore=/test-models/*"
+		"test": "tap --test-ignore=/test-models*"
 	},
 	"repository": {
 		"type": "git",

@@ -72,7 +72,7 @@ function loadModels(decorator, modelDirectoryPath, useModelAliases) {
 
 		if (useModelAliases) {
 			if (!model.alias || typeof model.alias !== "string") {
-				throw new Error(`No alias defined for ${file}`);
+				throw new Error(`fastify-plugin-mongoose: No alias defined for ${file}`);
 			}
 			decorator.models[model.alias] = mongoose.model(model.alias, schema);
 		} else {
@@ -80,6 +80,33 @@ function loadModels(decorator, modelDirectoryPath, useModelAliases) {
 			decorator.models[name] = mongoose.model(name, schema);
 		}
 	});
+}
+
+function registerModelOnTheFlyFunction(fastify, useModelAliases) {
+	return (model) => {
+		if(!model.name && !model.alias) {
+			throw new Error(`fastify-plugin-mongoose: registerModel() requires a name or alias to be defined`);
+		}
+
+		fixReferences(model.schema);
+
+		const schema = new mongoose.Schema(model.schema, model.options || {});
+
+		if (model.class) schema.loadClass(model.class);
+		if (model.virtualize) model.virtualize(schema);
+		if (model.pre) attachPreMiddleware(model, schema);
+		if (model.post) attachPostMiddleware(model, schema);
+
+		if (useModelAliases) {
+			if (!model.alias || typeof model.alias !== 'string') {
+				throw new Error(`fastify-plugin-mongoose: No alias defined for ${model.name}`);
+			}
+			fastify.mongoose.models[model.alias] = mongoose.model(model.alias, schema);
+		} else {
+			const name = model.name || model.alias;
+			fastify.mongoose.models[name] = mongoose.model(name, schema);
+		}
+	};
 }
 
 async function fastifyMongoose(
@@ -95,6 +122,7 @@ async function fastifyMongoose(
 	const decorator = {
 		connection: mongoose.connection,
 		models: {},
+		registerModel: registerModelOnTheFlyFunction(fastify, useModelAliases),
 	};
 
 	// load models if they give us a directory to traverse
